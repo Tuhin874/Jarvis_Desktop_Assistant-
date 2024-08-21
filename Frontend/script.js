@@ -1,6 +1,3 @@
-// For Canvas in HTML
-
-
 window.addEventListener("load", windowLoadHandler, false);
 var sphereRad = 140;
 var radius_sp = 1;
