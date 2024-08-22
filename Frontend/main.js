@@ -1,5 +1,8 @@
 $(document).ready(function () {
 
+    eel.init()()
+
+
     $('.text').textillate({
         loop: true,
         sync: true,
@@ -20,12 +23,12 @@ $(document).ready(function () {
         style: "ios9",
         amplitude: "1",
         speed: "0.30",
-        autostart: true,
-    });
+        autostart: true
+      });
 
 
     // Siri Massage animation
-    $('.siri-massage').textillate({
+    $('.siri-message').textillate({
         loop: true,
         sync: true,
         in:{
@@ -42,7 +45,6 @@ $(document).ready(function () {
         eel.playAssistantSound()();
         $("#Oval").attr("hidden", true);
         $("#SiriWave").attr("hidden", false);
-        eel.speak("How can i help you")();
         eel.allCommands()();
     });
 
@@ -54,7 +56,6 @@ $(document).ready(function () {
             eel.playAssistantSound()
             $("#Oval").attr("hidden", true);
             $("#SiriWave").attr("hidden", false);
-            eel.speak("How can i help you")();
             eel.allCommands()()
         }
     }
@@ -68,7 +69,7 @@ $(document).ready(function () {
 
             $("#Oval").attr("hidden", true);
             $("#SiriWave").attr("hidden", false);
-            eel.inputBoxCommands(message);
+            eel.allCommands(message);
             $("#chatbox").val("");
             $("#MicBtn").attr('hidden', false);
             $("#SendBtn").attr('hidden', true);
