@@ -1,1 +1,1 @@
-ASSISTANT_NAME = "hey siri"
+ASSISTANT_NAME = "siri"

@@ -46,25 +46,23 @@ def playAssistantSound():
     except Exception as e:
         print(f"Error playing sound: {e}")
 
-
 import struct
 import time
 import pyaudio
 import pvporcupine
 
+
 def hotword():
     porcupine=None
     paud=None
     audio_stream=None
-
     try:
        
         # pre trained keywords    
-        porcupine=pvporcupine.create(keywords=["jarvis","alexa" , "hey siri"]) 
+        porcupine=pvporcupine.create(keywords=["jarvis","alexa", "hey siri"]) 
         paud=pyaudio.PyAudio()
         audio_stream=paud.open(rate=porcupine.sample_rate,channels=1,format=pyaudio.paInt16,input=True,frames_per_buffer=porcupine.frame_length)
         
-
         # loop for streaming
         while True:
             keyword=audio_stream.read(porcupine.frame_length)
@@ -81,7 +79,7 @@ def hotword():
                 import pyautogui as autogui
                 autogui.keyDown("win")
                 autogui.press("j")
-                time.sleep(1)
+                time.sleep(2)
                 autogui.keyUp("win")
                 
     except:
@@ -93,37 +91,49 @@ def hotword():
             paud.terminate()
 
 
+def chatBot(query):
+    query = str(query)
+    user_input = f"you are a Artificial Intelligence model named Siri.answer my question :-  {query.lower()} in 30 words only answer it without master,ah,etc."
+    chatbot = hugchat.ChatBot(cookie_path="engine\cookies.json")
+    id = chatbot.new_conversation()
+    chatbot.change_conversation(id)
+    response =  chatbot.chat(user_input)
+    print(f"Chatbot Response: {response}")  # Debugging line
+    speak(response)
+    return response
 
 
 
 # chat bot 
-def chatBot(query):
-    try:
-        query = str(query)
-        user_input = f"you are a Artificial Intelligence model named Siri.answer my question :-  {query.lower()} in 30 words only answer it without master,ah,etc."
-        # Ensure the path is cross-platform
-        cookie_path = os.path.join("Engine", "cookies.json")
-        chatbot = hugchat.ChatBot(cookie_path=cookie_path)
-        id = chatbot.new_conversation()
-        chatbot.change_conversation(id)
-        # Get the chatbot's response
-        response =  chatbot.chat(user_input)
+# def chatBot(query):
+#     try:
+#         query = str(query)
+#         user_input = f"you are a Artificial Intelligence model named Siri.answer my question :-  {query.lower()} in 30 words only answer it without master,ah,etc."
+#         # Ensure the path is cross-platform
+#         cookie_path = os.path.join("Engine", "cookies.json")
+#         chatbot = hugchat.ChatBot(cookie_path=cookie_path)
+#         id = chatbot.new_conversation()
+#         chatbot.change_conversation(id)
+#         # Get the chatbot's response
+#         response =  chatbot.chat(user_input)
 
-        print(response)
-        speak(response)
-        return response
+#         print(response)
+#         speak(response)
+#         return response
     
-    except Exception as e:
-        print(f"Some error occurred: {e}")
-        return None
+#     except Exception as e:
+#         print(f"Some error occurred: {e}")
+#         return None
     
+
+
 
 
 
 def openCommand(query):
     query = query.replace(ASSISTANT_NAME , "")
     query = query.replace("open" , "")
-    query = query.replace("Siri open","")
+    query = query.replace("siri open","")
     query.lower()
 
 
@@ -191,7 +201,7 @@ dictapp1 ={"microsoft edge" : "msedge.exe","video" : "video" ,"command prompt":"
 def closeCommand(query):
     query = query.replace(ASSISTANT_NAME , "")
     query = query.replace("open" , "")
-    query = query.replace("Siri open","")
+    query = query.replace("jarvis open","")
     query = query.replace("can","")
     query = query.replace("you","")
     query = query.replace("please","")
@@ -245,6 +255,8 @@ def closeCommand(query):
 
 
 
+
+
 def playYoutube(query):
     query = query.replace("youtube search ", "")
     query = query.replace("youtube" , "")
@@ -287,7 +299,7 @@ def findContact(query):
         query = query.strip().lower()
         cursor.execute("SELECT mobile_no FROM contacts WHERE LOWER(name) LIKE ? OR LOWER(name) LIKE ?", ('%' + query + '%', query + '%'))
         results = cursor.fetchall()
-        print(results[0][0])
+        # print(results[0][0]) #For Debug only
         mobile_number_str = str(results[0][0])
         if not mobile_number_str.startswith('+91'):
             mobile_number_str = '+91' + mobile_number_str
@@ -304,17 +316,17 @@ def whatsApp(mobile_no, message, flag, name):
 
     if flag == 'message':
         target_tab = 12
-        jarvis_message = "message send successfully to "+name
+        ai_message = "message send successfully to "+name
 
     elif flag == 'call':
         target_tab = 7
         message = ''
-        jarvis_message = "calling to "+name
+        ai_message = "calling to "+name
 
     else:
         target_tab = 6
         message = ''
-        jarvis_message = "staring video call with "+name
+        ai_message = "staring video call with "+name
 
     # Encode the message for URL
     encoded_message = quote(message)
@@ -338,4 +350,4 @@ def whatsApp(mobile_no, message, flag, name):
         autogui.hotkey('tab')
 
     autogui.hotkey('enter')
-    speak(jarvis_message)
+    speak(ai_message)

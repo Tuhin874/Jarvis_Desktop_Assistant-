@@ -1,7 +1,7 @@
 import csv
 import sqlite3
 
-con = sqlite3.connect("jarvis.db")
+con = sqlite3.connect("Siri.db")
 cursor = con.cursor()
 
 # query = "CREATE TABLE IF NOT EXISTS sys_command(id integer primary key, name VARCHAR(100), path VARCHAR(1000))"
@@ -34,6 +34,7 @@ cursor = con.cursor()
 
 
 # Create a table with the desired columns
+
 # cursor.execute('''CREATE TABLE IF NOT EXISTS contacts (id integer primary key, name VARCHAR(200), mobile_no VARCHAR(255), email VARCHAR(255) NULL)''')
 
 
@@ -62,7 +63,8 @@ cursor = con.cursor()
 
 
 
-# query = "INSERT INTO contacts VALUES (null,'put here the name of the contact', 'put here the number of the contact', 'null')"
+
+# query = "INSERT INTO contacts VALUES (null,'put here the name of the contact', 'put here the number of the contact', 'Email(null')"
 # cursor.execute(query)
 # con.commit()
 

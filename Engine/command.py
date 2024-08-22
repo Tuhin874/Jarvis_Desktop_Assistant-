@@ -1,4 +1,4 @@
-import sys
+
 import pyttsx3
 import eel
 import time
@@ -19,6 +19,8 @@ engine.setProperty('rate',174) #To slow down(0 - 100) and fast the voice speed(1
 
 @eel.expose
 def speak(audio):
+    audio = str(audio)
+    # print(f"Speaking: {audio}")  # Debugging line
     eel.DisplayMessage(audio)
     engine.say(audio)                              #speak function
     eel.receiverText(audio)
@@ -31,37 +33,7 @@ def speakwithout(audio):
     engine.say(audio)                               #speak function
     eel.receiverText(audio)
     engine.setProperty('volume' , 1.0)
-    engine.runAndWait()
-
-
-# @eel.expose
-# def takecommand():
-
-#     r = sr.Recognizer()
-
-#     with sr.Microphone() as source:
-#         print('listening....')
-#         eel.DisplayMessage('listening....')
-#         try:
-#             r.pause_threshold = 1
-#             r.adjust_for_ambient_noise(source)
-#             audio = r.listen(source, timeout=10, phrase_time_limit=6)
-#             print('recognizing.....')
-#             eel.DisplayMessage('recognizing....')
-#             query = r.recognize_google(audio, language='en-in')
-#             print(f"user said: {query}")
-#             eel.DisplayMessage(query)
-#             time.sleep(2)
-#             return query
-#         except sr.WaitTimeoutError:
-#             print("Timeout: No speech detected within the time limit.")
-#             return "Timeout"
-#         except sr.UnknownValueError:
-#             print("Could not understand the audio.")
-#             return "Unknown"
-#         except sr.RequestError as e:
-#             print(f"Could not request results; {e}")
-#             return "Error"
+    engine.runAndWait()  
 
 
 def takecommand():
@@ -82,7 +54,7 @@ def takecommand():
         query = r.recognize_google(audio, language='en-in')
         print(f"user said: {query}")
         eel.DisplayMessage(query)
-        time.sleep(2)
+        time.sleep(0.4)
        
     except Exception as e:
         return ""
@@ -98,7 +70,6 @@ def allCommands(message=1):
 
     if message == 1:
         query = takecommand()
-        print(query)
         eel.senderText(query)
     else:
         query = message
