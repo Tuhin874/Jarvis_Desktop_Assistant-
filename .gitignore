@@ -1,0 +1,5 @@
+/envJarvis
+Siri.db
+Engine/__pycache__
+Engine/cookies.json
+*.pyc
