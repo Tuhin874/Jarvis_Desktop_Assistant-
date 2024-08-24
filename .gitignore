@@ -3,3 +3,6 @@ Engine/__pycache__/
 __pycache__/
 Engine/cookies.json
 envsiri
+__pycache__
+Engine\__pycache__
+Engine\auth\__pycache__
